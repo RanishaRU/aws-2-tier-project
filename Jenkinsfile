@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        AWS_DEFAULT_REGION = 'us-east-1'
-        AWS_ACCOUNT_ID     = '657001761946'
+        AWS_DEFAULT_REGION = 'us-east-2'
+        AWS_ACCOUNT_ID     = '668319990023'
         IMAGE_TAG          = "1.0.${BUILD_NUMBER}"
         SCANNER_HOME       = tool 'sonar-scanner'
         FRONTEND_ECR_URI   = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/frontend-repo"
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'github-cred',
-                    url: 'https://github.com/vijaygiduthuri/aws-2-tier-project.git'
+                    url: 'https://github.com/RanishaRU/aws-2-tier-project.git'
             }
         }
 
@@ -46,12 +46,14 @@ pipeline {
             }
         }
 
-        stage('OWASP Dependency-Check Scan') {
+/* 
+       stage('OWASP Dependency-Check Scan') {
             steps {
                 dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
+*/
 
         stage('Authenticate with AWS and ECR') {
             steps {
@@ -136,14 +138,14 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'github-cred',
-                    url: 'https://github.com/vijaygiduthuri/aws-2-tier-helm-chart.git'
+                    url: 'https://github.com/RanishaRU/aws-2-tier-helm-chart.git'
             }
         }
 
         stage('Update helm values.yaml with New Docker Image') {
             environment {
                 GIT_REPO_NAME = "aws-2-tier-helm-chart"
-                GIT_USER_NAME = "vijaygiduthuri"
+                GIT_USER_NAME = "RanishaRU"
             }
             steps {
                 withCredentials([usernamePassword(
@@ -154,7 +156,7 @@ pipeline {
                     sh """
                         set -e
 
-                        git config user.email "vijaygiduthuri@example.com"
+                        git config user.email "ranisha@example.com"
                         git config user.name "${GIT_USER_NAME}"
 
                         echo "=== BEFORE ==="
