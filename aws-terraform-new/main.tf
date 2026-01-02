@@ -12,14 +12,14 @@ terraform {
 }
 
 
-//terraform {
-  //backend "s3" {
-    //bucket  = "terraformbuckerforstatefiles2" # create s3 bucket to store statefile
-    //key     = "Dev/terraform.tfstate"
-    //region  = "us-east-2"
-    //encrypt = false
-  //}
-//}
+  terraform {
+   backend "s3" {
+      bucket  = "terraformbuckerforstatefiles2" # create s3 bucket to store statefile
+      key     = "Dev/terraform.tfstate"
+      region  = "us-east-2"
+      encrypt = false
+    }
+  }
 
 
 # Configure the AWS Provider
@@ -77,6 +77,7 @@ module "rds" {
   instance_class          = "db.t3.micro"
   backup_retention_period = 0
 }
+
 
 
 
