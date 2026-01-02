@@ -65,7 +65,7 @@ module "rds" {
   source                  = "./rds"
   db_identifier           = "my-rds-instance"
   db_name                 = "appdb"
-  db_username             = "vijay"
+  db_username             = "Ranisha"
   db_password             = "Password123" 
   db_subnet_ids           = module.vpc.public_subnet_ids
   db_subnet_group_name    = "rds-subnet-group"
@@ -77,6 +77,7 @@ module "rds" {
   instance_class          = "db.t3.micro"
   backup_retention_period = 0
 }
+
 
 
 
