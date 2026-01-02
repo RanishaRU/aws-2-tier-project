@@ -16,7 +16,7 @@ terraform {
   backend "s3" {
     bucket  = "terraformbuckerforstatefiles" # create s3 bucket to store statefile
     key     = "dev/terraform.tfstate"
-    region  = "us-east-1"
+    region  = "us-east-2"
     encrypt = false
   }
 }
@@ -24,7 +24,7 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-2"
 }
 
 module "vpc" {
@@ -32,7 +32,7 @@ module "vpc" {
   vpc_cidr             = "10.0.0.0/16"
   vpc_name             = "project-vpc"
   cidr_public_subnet   = ["10.0.1.0/24", "10.0.2.0/24"]
-  eu_availability_zone = ["us-east-1a", "us-east-1b"]
+  eu_availability_zone = ["us-east-2a", "us-east-2b"]
 }
 
 module "security_group" {
@@ -48,7 +48,7 @@ module "ec2" {
   instance_type      = "t2.micro"
   subnet_id          = element(module.vpc.public_subnet_ids, 0)
   security_group_ids = [module.security_group.sg_ec2_sg_ssh_http_id]
-  key_name           = "project-keypair2025"  # create keypair manually & update name here
+  key_name           = "My-keypair"  # create keypair manually & update name here
 }
 
 module "eks" {
@@ -77,6 +77,7 @@ module "rds" {
   instance_class          = "db.t3.micro"
   backup_retention_period = 0
 }
+
 
 
 
