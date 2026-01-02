@@ -44,7 +44,7 @@ module "security_group" {
 
 module "ec2" {
   source             = "./ec2"
-  ami_id             = "ami-0ecb62995f68bb549" # Ubuntu 22.04 (us-east-1)
+  ami_id             = "ami-0f5fcdfbd140e4ab7" # Ubuntu 22.04 (us-east-1)
   instance_type      = "t2.micro"
   subnet_id          = element(module.vpc.public_subnet_ids, 0)
   security_group_ids = [module.security_group.sg_ec2_sg_ssh_http_id]
@@ -77,6 +77,7 @@ module "rds" {
   instance_class          = "db.t3.micro"
   backup_retention_period = 0
 }
+
 
 
 
